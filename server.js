@@ -1,7 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const cors = require('cors');
-const db = require('./src/config/db');
 
 const userRoutes = require('./src/api/routes/userRoutes');
 const tweetRoutes = require('./src/api/routes/tweetRoutes');
@@ -15,10 +13,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Check');
+  res.send(`Server is running on http://localhost:${PORT}`);
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/tweets', tweetRoutes);
+app.use('/api/followers', followerRoutes);
+app.use('/api/likes', likeRoutes);
 
 app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
