@@ -52,3 +52,12 @@ exports.logout = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getUser = async (req, res) => {
+  try {
+    const user = await authService.getUser(req.params.username);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

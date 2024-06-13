@@ -58,3 +58,11 @@ exports.delete = async ({ username, password }) => {
 
   return deleted;
 };
+
+exports.getUser = async (username) => {
+  const user = await User.findByUsername(username);
+  if (!user) {
+    throw new Error('User not found');
+  }
+  return user;
+};
