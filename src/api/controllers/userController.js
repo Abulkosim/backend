@@ -44,3 +44,11 @@ exports.delete = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.logout = async (req, res) => {
+  try {
+    res.status(200).json({ message: 'Logged out successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

@@ -3,11 +3,11 @@ const router = express.Router();
 const tweetController = require('../controllers/tweetController');
 const auth = require('../middleware/auth');
 
+router.get('/', auth, tweetController.getTweets)
 router.post('/post', auth, tweetController.postTweet);
-// router.get('/', tweetController.getUsers);
-// router.post('/register', tweetController.register);
-// router.post('/login', tweetController.login);
-// router.put('/update', tweetController.update);
-// router.delete('/delete', tweetController.delete);
+router.delete('/delete/:id', auth, tweetController.deleteTweet);
+router.put('/update/:id', auth, tweetController.updateTweet);
+router.get('/:id', auth, tweetController.getTweet);
+
 
 module.exports = router;
