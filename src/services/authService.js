@@ -28,11 +28,18 @@ exports.login = async ({ username, password }) => {
 };
 
 exports.update = async (updates) => {
-  const { username, password, bio, oldUsername } = updates;
+  const { username, password, bio } = updates;
+  let password_hash;
 
-  const password_hash = await bcrypt.hash(password, 10);
+  if (password) {
+    password_hash = await bcrypt.hash(password, 10);
+  }
 
-  const updated = await User.update({ username, password_hash, bio, oldUsername });
+  const updated = await User.update({
+    username,
+    password_hash,
+    bio
+  });
 
   if (!updated) {
     throw new Error('Failed to update!');

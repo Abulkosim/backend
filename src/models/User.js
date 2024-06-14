@@ -23,10 +23,10 @@ class User {
   }
 
   static async update(updates) {
-    const { username, password_hash, bio, oldUsername } = updates;
+    const { username, password_hash, bio } = updates;
     const result = await db.query(
-      'UPDATE users SET username = $1, password_hash = $2, bio = $3 WHERE username = $4 RETURNING *',
-      [username, password_hash, bio, oldUsername]
+      'UPDATE users SET password_hash = $1, bio = $2 WHERE username = $3 RETURNING *',
+      [password_hash, bio, username]
     );
     return result.rows[0];
   }
