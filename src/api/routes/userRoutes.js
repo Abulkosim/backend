@@ -24,6 +24,8 @@ router.get('/logout', auth, userController.logout);
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.delete('/delete', auth, userController.delete);
+
+router.get('/getPic/:username', auth, userController.getPic);
 router.post('/uploadPic', auth, upload.single('profilePic'), userController.uploadPic);
 
 module.exports = router;

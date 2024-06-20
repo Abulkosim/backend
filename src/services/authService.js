@@ -95,3 +95,11 @@ exports.uploadPic = async (id, file) => {
 
   return updated;
 };
+
+exports.getPic = async (username) => {
+  const user = await User.getPic(username);
+  if (!user || !user.profile_pic) {
+    throw new Error('Image not found');
+  } 
+  return user;
+};

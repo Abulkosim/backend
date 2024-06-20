@@ -54,6 +54,14 @@ class User {
     );
     return result.rows[0];
   }
+
+  static async getPic(username) {
+    const result = await db.query(
+      'SELECT profile_pic FROM users WHERE username = $1',
+      [username]
+    );
+    return result.rows[0];
+  }
 }
 
 module.exports = User;

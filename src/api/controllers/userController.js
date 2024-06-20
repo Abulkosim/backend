@@ -1,4 +1,5 @@
 const authService = require('../../services/authService');
+const path = require('path');
 
 exports.getUsers = async (req, res) => {
   try {
@@ -85,6 +86,16 @@ exports.uploadPic = async (req, res) => {
 
     const user = await authService.uploadPic(id, profilePic);
     res.status(200).json({ message: 'Profile picture uploaded successfully'});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+exports.getPic = async (req, res) => {
+  try {
+    const user = await authService.getPic(req.params.username);
+    const img = path.join(__dirname, '../../../images', user.profile_pic);
+    res.status(200).sendFile(img);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
