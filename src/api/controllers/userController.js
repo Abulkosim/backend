@@ -29,7 +29,10 @@ exports.login = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const user = await authService.update(req.body);
+    const id = req.user.id;
+    const { name, username, password, bio } = req.body;
+
+    const user = await authService.update(id, { name, username, password, bio });
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -61,3 +64,15 @@ exports.getUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.editName = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const name = req.body.name;
+
+    const user = await authService.editName(id, name);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}

@@ -23,10 +23,10 @@ class User {
   }
 
   static async update(updates) {
-    const { username, password_hash, bio } = updates;
+    const { id, name, username, password_hash, bio } = updates;
     const result = await db.query(
-      'UPDATE users SET password_hash = $1, bio = $2 WHERE username = $3 RETURNING *',
-      [password_hash, bio, username]
+      'UPDATE users SET name = $1, username = $2, password_hash = $3, bio = $4 WHERE id = $5 RETURNING *',
+      [name, username, password_hash, bio, id]
     );
     return result.rows[0];
   }
@@ -35,6 +35,14 @@ class User {
     const result = await db.query(
       'DELETE FROM users WHERE username = $1 RETURNING *',
       [username]
+    );
+    return result.rows[0];
+  }
+
+  static async editName(id, name) {
+    const result = await db.query(
+      'UPDATE users SET name = $1 WHERE id = $2 RETURNING *',
+      [name, id]
     );
     return result.rows[0];
   }

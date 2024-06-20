@@ -27,8 +27,8 @@ exports.login = async ({ username, password }) => {
   return { user, token };
 };
 
-exports.update = async (updates) => {
-  const { username, password, bio } = updates;
+exports.update = async (id, payload) => {
+  const { name, username, password, bio } = payload;
   let password_hash;
 
   if (password) {
@@ -36,6 +36,8 @@ exports.update = async (updates) => {
   }
 
   const updated = await User.update({
+    id,
+    name,
     username,
     password_hash,
     bio
@@ -73,3 +75,13 @@ exports.getUser = async (username) => {
   }
   return user;
 };
+
+exports.editName = async (id, name) => {
+  const updated = await User.editName(id, name);
+
+  if (!updated) {
+    throw new Error('Failed to update!');
+  }
+
+  return updated;
+}
