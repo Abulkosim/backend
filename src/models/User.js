@@ -46,6 +46,14 @@ class User {
     );
     return result.rows[0];
   }
+
+  static async uploadPic(id, file) {
+    const result = await db.query(
+      'UPDATE users SET profile_pic = $1 WHERE id = $2 RETURNING *',
+      [file, id]
+    );
+    return result.rows[0];
+  }
 }
 
 module.exports = User;

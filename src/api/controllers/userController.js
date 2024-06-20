@@ -76,3 +76,16 @@ exports.editName = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 }
+
+exports.uploadPic = async (req, res) => {
+  try {
+    const id = req.user.id;
+    console.log(req.file)
+    const profilePic = req.file.filename;
+
+    const user = await authService.uploadPic(id, profilePic);
+    res.status(200).json({ message: 'Profile picture uploaded successfully'});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}

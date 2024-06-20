@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const userRoutes = require('./src/api/routes/userRoutes');
 const tweetRoutes = require('./src/api/routes/tweetRoutes');
@@ -11,6 +12,7 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.get('/', (req, res) => {
   res.send(`Server is running on http://localhost:${PORT}`);

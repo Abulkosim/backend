@@ -22,7 +22,7 @@ exports.login = async ({ username, password }) => {
   if (!isMatch) {
     throw new Error('Invalid credentials');
   }
-  const token = jwt.sign({ id: user.id, username: user.username }, secretKey, { expiresIn: '24h' });
+  const token = jwt.sign({ id: user.id, username: user.username }, secretKey, { expiresIn: '72h' });
   console.log(token)
   return { user, token };
 };
@@ -85,3 +85,13 @@ exports.editName = async (id, name) => {
 
   return updated;
 }
+
+exports.uploadPic = async (id, file) => {
+  const updated = await User.uploadPic(id, file);
+
+  if (!updated) {
+    throw new Error('Failed to update!');
+  }
+
+  return updated;
+};
